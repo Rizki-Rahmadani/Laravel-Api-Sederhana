@@ -44,8 +44,17 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+    $user = User::find($id);
+
+    if (!$user) {
+        return response()->json([
+            'message' => 'User tidak ditemukan.'
+        ], 404);
     }
+
+    return response()->json($user);
+    }
+
 
     /**
      * Update the specified resource in storage.
