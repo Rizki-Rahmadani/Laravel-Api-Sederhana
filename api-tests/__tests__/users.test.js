@@ -3,7 +3,7 @@ const axios = require('axios');
 const baseURL = 'http://localhost:8000/api'; // Ganti dengan URL Laravel kamu
 
 describe('User API', () => {
-    let createdUserId = "19d839a4-77cd-4524-973c-34b0d3aa394b";
+    let updatedUserId = null;
 
     it('should return all users', async() => {
         const res = await axios.get(`${baseURL}/users`);
@@ -13,14 +13,15 @@ describe('User API', () => {
 
     it('should create a user', async() => {
         const user = {
-            name: 'farhan',
-            email: `farhan${Date.now()}@example.com`,
+            name: 'medi',
+            email: `medi${Date.now()}@example.com`,
             age: 28
         };
 
         const res = await axios.post(`${baseURL}/users`, user);
         expect(res.status).toBe(201);
         expect(res.data.name).toBe(user.name);
+        createdUserId = res.data.id;
     });
 
     it('should return user by id', async() => {
@@ -42,5 +43,11 @@ describe('User API', () => {
         expect(res.data.name).toBe(updatedData.name);
         expect(res.data.email).toBe(updatedData.email);
         expect(res.data.age).toBe(updatedData.age);
+    });
+
+    it('should delete a user', async() => {
+        const res = await axios.delete(`${baseURL}/users/${createdUserId}`);
+        expect(res.status).toBe(200);
+        expect(res.data.message).toBe('User berhasil dihapus.');
     });
 });
