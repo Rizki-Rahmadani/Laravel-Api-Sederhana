@@ -27,5 +27,67 @@ Ikuti langkah-langkah berikut untuk menyiapkan aplikasi API ini di komputer loka
 Clone repository ini ke dalam folder lokal:
 
 ```bash
-git clone https://github.com/username/repository-name.git
-cd repository-name
+git clone [https://github.com/username/repository-name.git](https://github.com/Rizki-Rahmadani/Laravel-Api-Sederhana.git)
+cd Laravel-Api-Sederhana
+
+### 2. Instal Dependensi
+composer install
+
+### 3. Konfigurasi Environment
+- Salin file .env.example menjadi .env
+- Kemudian, ubah konfigurasi database di file .env agar sesuai dengan pengaturan database lokal kamu:
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=nama_database
+DB_USERNAME=nama_pengguna
+DB_PASSWORD=password
+
+### 4. Generate Key Aplikasi
+php artisan key:generate
+
+### 5. Migrasi Database
+php artisan migrate
+
+### 6. Menjalankan Server
+php artisan serve
+
+
+## Penggunaan API
+API ini menyediakan endpoint berikut:
+
+### 1. Get All Users
+endpoint: GET /api/users
+
+### 2. Create User
+endpoint: POST /api/users
+Request Body:
+{
+  "name": "User Name",
+  "email": "user@example.com",
+  "age": 25
+}
+
+### 3. Get User by ID
+endpoint: GET /api/users/{id}
+
+### 4. Update User
+endpoint: PUT /api/users/{id}
+
+### 5. Delete User
+endpoint: DELETE /api/users/{id}
+
+## Testing
+Untuk melakukan pengujian API menggunakan Jest dan axios, pastikan server API sedang berjalan.
+
+### 1. Instalasi Dependensi Pengujian
+Instal dependensi yang diperlukan untuk pengujian:
+- npm install
+
+### 2. Menjalankan Pengujian
+Jalankan pengujian dengan perintah:
+- npx jest
+
+## Logging
+API ini juga mencatat setiap request yang masuk menggunakan Laravel logging system. Kamu dapat melihat log di file storage/logs/laravel.log.
+
