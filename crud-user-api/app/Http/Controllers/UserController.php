@@ -60,9 +60,35 @@ class UserController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        //
+{
+    // Cari user berdasarkan ID
+    $user = User::find($id);
+
+    if (!$user) {
+        return response()->json(['message' => 'User tidak ditemukan.'], 404);
     }
+
+    // Validasi data yang diterima
+    $validated = $request->validate([
+        'name' => 'sometimes|required|string|max:255',
+        'email' => 'sometimes|required|email|unique:users,email,' . $id,
+        'age' => 'sometimes|required|integer|min:0',
+    ], [
+        'name.required' => 'Nama wajib diisi.',
+        'email.required' => 'Email tidak boleh kosong.',
+        'email.email' => 'Format email tidak valid.',
+        'email.unique' => 'Email sudah digunakan.',
+        'age.required' => 'Umur wajib diisi.',
+        'age.integer' => 'Umur harus berupa angka.',
+        'age.min' => 'Umur tidak boleh negatif.',
+    ]);
+
+    // Update user dengan data yang divalidasi
+    $user->update($validated);
+
+    return response()->json($user);
+}
+
 
     /**
      * Remove the specified resource from storage.
