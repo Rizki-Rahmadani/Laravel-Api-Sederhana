@@ -26,7 +26,6 @@ Ikuti langkah-langkah berikut untuk menyiapkan aplikasi API ini di komputer loka
 
 Clone repository ini ke dalam folder lokal:
 
-```bash
 git clone [https://github.com/username/repository-name.git](https://github.com/Rizki-Rahmadani/Laravel-Api-Sederhana.git)
 cd Laravel-Api-Sederhana
 
