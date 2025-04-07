@@ -29,4 +29,18 @@ describe('User API', () => {
         expect(res.data).toHaveProperty('id');
         expect(res.data.id).toBe(createdUserId);
     });
+
+    it('should update a user', async() => {
+        const updatedData = {
+            name: 'Rizki Updated',
+            email: `rizki_updated${Date.now()}@example.com`,
+            age: 30
+        };
+
+        const res = await axios.put(`${baseURL}/users/${createdUserId}`, updatedData);
+        expect(res.status).toBe(200);
+        expect(res.data.name).toBe(updatedData.name);
+        expect(res.data.email).toBe(updatedData.email);
+        expect(res.data.age).toBe(updatedData.age);
+    });
 });
